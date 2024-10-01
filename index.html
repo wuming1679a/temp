@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我错了，呜呜呜</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .value {
+            position: fixed;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1000;
+            transition: transform 1s ease, opacity 1s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="output"></div>
+
+    <script>
+        const coreValues = [
+            "刘明泽", "我错了", "我不高冷","把我拉出黑名单","求你了","呜呜呜。。。","我去跑100","400，4*100，1500","我跑死，我活该","我承包体育文化艺术节","我不当装哥","我不高冷","错了 ，真错了","求你了，泽泽，快把我拉出来","我发誓，我保证以后绝对不惜字如金"
+        ];
+
+        let currentIndex = 0; // 用于跟踪当前要显示的词
+
+        function showCoreValues(x, y) {
+            const valueDiv = document.createElement('div');
+            valueDiv.className = 'value';
+
+            // 如果已经显示完所有词，重置索引
+            if (currentIndex >= coreValues.length) {
+                currentIndex = 0;
+            }
+
+            valueDiv.innerText = coreValues[currentIndex]; // 显示当前索引的词
+
+            const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            valueDiv.style.backgroundColor = randomColor;
+
+            valueDiv.style.left = (x + 10) + 'px';
+            valueDiv.style.top = (y + 10) + 'px';
+
+            document.body.appendChild(valueDiv);
+
+            // 淡出和上移效果
+            setTimeout(() => {
+                valueDiv.style.transform = 'translateY(-30px)';
+                valueDiv.style.opacity = 0;
+                valueDiv.addEventListener('transitionend', () => {
+                    document.body.removeChild(valueDiv);
+                });
+            }, 100);
+
+            currentIndex++; // 更新索引以便下次点击时显示下一个词
+        }
+
+        document.addEventListener('click', (event) => {
+            showCoreValues(event.pageX, event.pageY);
+        });
+    </script>
+</body>
+
+</html>
